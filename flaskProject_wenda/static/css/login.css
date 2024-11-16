@@ -1,0 +1,257 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.login-box {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: fixed; /* 确保完全贴合视窗 */
+    top: 0;
+    left: 0; /* 确保左边紧贴 */
+    overflow: hidden;
+}
+
+.login-box canvas {
+    width: 100vw;
+    height: 100vh;
+    display: inline-block;
+    vertical-align: baseline;
+    position: absolute;
+    z-index: -1;
+}
+
+.login-box .canvaszz {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../img/in_top_bj.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 10;
+    filter: alpha(opacity=40);
+    -moz-opacity: 0.4;
+    -khtml-opacity: 0.4;
+    opacity: 0.4;
+}
+
+.login_tit {
+    position: absolute;
+    top: -60px;
+    left: -5px;
+    width: 420px;
+    color: #fff;
+    text-align: center;
+}
+
+.tit-bg {
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 90px;
+    height: 1px;
+    background: url(../img/login-tit.png);
+}
+
+.tit-bg.left {
+    left: 0;
+    transform: rotate(180deg);
+}
+
+.tit-bg.right {
+    right: 0;
+}
+
+.login_tit > div {
+    position: relative;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.login_tit > p {
+    font-size: 18px;
+    font-family: "arial";
+    margin: 10px 0;
+}
+
+.login-box .signup {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.login-box .signup a.gv {
+    text-decoration: none;
+    background: url(../img/nav_gv.png) repeat 0px 0px;
+    width: 130px;
+    height: 43px;
+    display: inline-block;
+    text-align: center;
+    line-height: 43px;
+    cursor: pointer;
+    margin: 8px 20px;
+    font: 18px/43px 'microsoft yahei';
+    color: #066197;
+    margin-left: 200px;
+}
+
+.login-box .signup a.gv:hover {
+    background: url(../img/nav_gv.png) repeat 0px -43px;
+    color: #1d7eb8;
+    -webkit-box-shadow: 0 0 6px #1d7eb8;
+    transition-duration: 0.5s;
+}
+
+.login-box .topcn {
+    width: 980px;
+    top: 50%; /* 垂直居中 */
+    left: 50%; /* 水平居中 */
+    transform: translate(-50%, -50%); /* 居中定位 */
+    position: absolute;
+    z-index: 20;
+}
+
+.input-content {
+    position: absolute;
+    z-index: 9999;
+    padding: 30px;
+    width: 350px;
+    left: 50%;
+    margin-left: -175px; /* 居中偏移 */
+    top: 50%;
+    transform: translateY(-50%); /* 垂直居中 */
+}
+.login_txtbx {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #1d7eb8; /* 边框颜色 */
+    color: white; /* 输入文字颜色 */
+    background-color: transparent; /* 设置背景为透明 */
+    outline: none; /* 去除输入框聚焦时的默认边框 */
+    text-indent: 1em; /* 增加文字缩进 */
+    font-size: 16px; /* 可根据需要调整字体大小 */
+}
+
+/* 调整验证码框和图片 */
+.checkcode {
+    display: flex;               /* 使用 Flexbox 布局 */
+    align-items: center;         /* 垂直居中对齐 */
+    justify-content: flex-start; /* 保持左对齐 */
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#J_codetext {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #1d7eb8;
+    color: white;
+    background-color: transparent;
+    outline: none;
+    text-indent: 1em;
+    font-size: 16px;
+    height: 40px;                /* 确保输入框的高度与验证码图片对齐 */
+}
+
+#myCanvas {
+    width: 120px;                /* 控制验证码图片的宽度 */
+    height: 40px;                /* 控制验证码图片的高度 */
+    border: 1px solid #1d7eb8;   /* 可选：为验证码图片添加边框 */
+    cursor: pointer;             /* 鼠标指针样式 */
+    /*margin-left: 200px;           !* 调整验证码图片的左边距，增加此数值使图片向右移动 *!*/
+    margin-top: 110px;
+}
+.ver_btn{
+    margin-left: 170px;
+}
+
+
+/* 设置验证码输入框为透明 */
+input[name="captcha"] {
+    background-color: transparent; /* 设置背景为透明 */
+    color: white; /* 设置文字颜色为白色或其他与背景对比度高的颜色 */
+    border: 1px solid rgba(255, 255, 255, 0.6); /* 边框透明度可根据需求调整 */
+}
+
+/* 设置验证码按钮文字颜色为浅白 */
+#captcha-btn {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.5); /* 设置浅白色文字 */
+}
+
+/* 鼠标悬停时让文字稍微变亮 */
+#captcha-btn:hover {
+    color: rgba(255, 255, 255, 0.8); /* 悬停时文字变亮 */
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+
+
+/* 立即注册按钮的样式 */
+/*.btn-primary {*/
+/*    background: url(../img/nav_gv.png) repeat 0px 0px; !* 设置背景 *!*/
+/*    width: 130px;*/
+/*    height: 43px;*/
+/*    color: #066197; !* 设置按钮文本颜色 *!*/
+/*    text-align: center;*/
+/*    line-height: 43px;*/
+/*    font: 18px/43px 'microsoft yahei';*/
+/*    text-decoration: none;*/
+/*    cursor: pointer;*/
+/*    border: none;*/
+/*    box-shadow: none; !* 移除默认的阴影 *!*/
+/*    transition: background 0.5s, color 0.5s, box-shadow 0.5s;*/
+/*}*/
+
+/*!* 悬停效果 *!*/
+/*.btn-primary:hover {*/
+/*    background: url(../img/nav_gv.png) repeat 0px -43px;*/
+/*    color: #1d7eb8;*/
+/*    box-shadow: 0 0 6px #1d7eb8;*/
+/*}*/
+
+/* 注册按钮基础样式 */
+.login-box .signup a.gv,
+button.gv { /* 通配符，适配按钮或链接 */
+    text-decoration: none; /* 去除文字下划线 */
+    background: url(../img/nav_gv.png) repeat 0px 0px; /* 按钮背景 */
+    width: 130px; /* 按钮宽度 */
+    height: 43px; /* 按钮高度 */
+    display: inline-block; /* 设置为行内块级 */
+    text-align: center; /* 文字水平居中 */
+    line-height: 43px; /* 文字垂直居中 */
+    cursor: pointer; /* 鼠标样式 */
+    margin: 8px 20px; /* 设置按钮间距 */
+    font: 18px/43px 'microsoft yahei'; /* 设置字体样式 */
+    color: #066197; /* 按钮文字颜色 */
+}
+
+/* 注册按钮悬停样式 */
+.login-box .signup a.gv:hover,
+button.gv:hover { /* 鼠标悬停效果 */
+    background: url(../img/nav_gv.png) repeat 0px -43px; /* 更换背景图片 */
+    color: #1d7eb8; /* 悬停时文字颜色 */
+    -webkit-box-shadow: 0 0 6px #1d7eb8; /* 添加悬停时阴影 */
+    transition-duration: 0.5s; /* 动画过渡 */
+}
+
+
+/*关于页面，图片显示样式*/
+
+
+
+
+
+
+
+
+

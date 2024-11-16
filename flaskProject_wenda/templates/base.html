@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.4.6.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
+    {% block head %}{% endblock %}
+<script>
+    function confirmLogout(event) {
+        event.preventDefault(); // 阻止默认跳转行为
+        const confirmLogout = confirm("您确定要退出登录吗？");
+        if (confirmLogout) {
+            // 用户确认后跳转到退出登录路由
+            window.location.href = "{{ url_for('auth.logout') }}";
+        }
+        // 用户取消则不执行任何操作
+    }
+    {#function showUserInfo(event) {#}
+    {#    event.preventDefault(); // 阻止默认跳转行为#}
+    {##}
+    {#    // 假设用户信息从后端通过模板传递到页面#}
+    {#    const userInfo = {#}
+    {#        username: "{{ user.username }}",#}
+    {#        email: "{{ user.email }}" // ,  // 假设有邮箱信息#}
+    {#        // role: "{{ user.role }}"    // 假设有角色信息#}
+    {#    };#}
+    {##}
+    {#    // 拼接用户信息展示#}
+    {#    const userMessage = `#}
+    {#        用户名: ${userInfo.username}#}
+    {#        邮箱: ${userInfo.email}#}
+            {#角色: ${userInfo.role}#}
+    {#    `;#}
+    {##}
+    {#    // 弹出提示框显示信息#}
+    {#    alert(userMessage); }#}
+
+    function showUserInfo(event) {
+        event.preventDefault(); // 阻止默认跳转行为
+
+        // 发送异步请求获取用户信息
+        fetch("{{ url_for('auth.user_info') }}")
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("错误: " + data.error);
+                } else {
+                    // 拼接用户信息展示
+                    const userMessage = `
+                        用户名: ${data.username}
+                        邮箱: ${data.email}
+                        {#角色: ${data.role}#}
+                    `;
+                    alert(userMessage);
+                }
+            })
+            .catch(error => {
+                console.error("请求用户信息失败:", error);
+                alert("获取用户信息失败，请稍后再试！");
+            });
+    }
+
+</script>
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('auth.about') }}">Taylor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('qa.public_question') }}">发布问答</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="{{ url_for('qa.search') }}">
+                            <input class="form-control mr-sm-2" type="search" placeholder="关键字" aria-label="Search" name="q">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user %}
+{#                    <li class="nav-item">#}
+{#                      <span class="nav-link">{{ user.username }}<img class="wenda" src="{{ url_for('static', filename='images/avatar.jpg') }}"></span>#}
+{#                    </li>#}
+                        <li class="nav-item">
+    <a class="nav-link" href="#" onclick="showUserInfo(event)">
+        {{ user.username }}
+        <img class="wenda" src="{{ url_for('static', filename='images/avatar.jpg') }}">
+    </a>
+</li>
+                    <li class="nav-item">
+                        <a class="nav-link"  onclick="confirmLogout(event)" href="{{ url_for('auth.logout') }}">退出登录</a>
+                    </li>
+                  {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('auth.login') }}">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.register') }}">注册</a>
+                    </li>
+                  {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+<footer class="text-center mt-5" style="background-color: #f8f9fa; padding: 20px;">
+        <p>&copy; 2024 Taylor平台. 版权所有。</p>
+        <p>
+        <a href="https://twitter.com" target="_blank">Twitter</a> |
+        <a href="https://www.douyin.com" target="_blank">DouYin</a> |
+        <a href="https://www.kuaishou.com" target="_blank">KuaiShou</a>
+    </p>
+    </footer>
+</body>
+
+</html>
